@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Email Popup</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+.popup {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 80%;
+    max-width: 300px;
+    background-color: #fff;
+    padding: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+}
+
+.popup-content {
+    text-align: center;
+}
+
+.open-popup {
+    display: block;
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 10px 20px;
+    background-color: #28a745;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+}
+
+.open-popup:hover {
+    background-color: #218838;
+}
+
+@media (min-width: 600px) {
+    .popup {
+        width: 60%;
+    }
+}
+
+    </style>
+</head>
+<body>
+    <div id="email-popup" class="popup">
+        <div class="popup-content">
+            <h2>Subscribe to our newsletter</h2>
+            <form id="email-form">
+                <label for="email">Enter your email:</label>
+                <input type="email" id="email" name="email" required>
+                <button type="submit">Submit</button>
+            </form>
+        </div>
+    </div>
+    <button id="open-popup" class="open-popup">Subscribe</button>
+    <script >
+        document.getElementById('open-popup').addEventListener('click', function() {
+    document.getElementById('email-popup').style.display = 'block';
+});
+
+document.getElementById('email-form').addEventListener('submit', function(event) {
+    event.preventDefault();
+    var email = document.getElementById('email').value;
+    fetch('YOUR_WEB_APP_URL', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded',
+        },
+        body: 'email=' + encodeURIComponent(email)
+    })
+    .then(response => response.text())
+    .then(result => {
+        alert('Thank you for subscribing!');
+        document.getElementById('email-popup').style.display = 'none';
+    })
+    .catch(error => {
+        console.error('Error:', error);
+    });
+});
+
+    </script>
+</body>
+</html>
