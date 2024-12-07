@@ -2,7 +2,7 @@
  * Flare 1.0.0 - Main JS
  *
  * ------------------------------------------------------------------- */
-
+window.si = window.si || function () { (window.siq = window.siq || []).push(arguments); };
 (function($) {
 
     "use strict";
